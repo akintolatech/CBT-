@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Based Test</title>
+    <link type="image/x-icon" href="{% static 'img/afit.ico' %}" rel="icon" />
+    <link type="text/css" href="{% static 'style/styles.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'style/dashboard.css' %}" rel="stylesheet"/>
+
+    <script>
+        window.onload = function(){
+                window.localStorage.clear()
+        };
+
+        //Prevent Data
+        history.pushState(null, null, );
+        window.addEventListener('popstate', function(event) {
+            history.pushState(null, null, );
+        });
+
+    </script>
+
+</head>
+<body>
+<!--    <a href="{% url 'rv_login' %}">-->
+<!--        <div class="util">-->
+<!--            <img src="{% static 'img/results.svg' %}" alt="#"  />-->
+<!--        </div>-->
+<!--    </a>-->
+
+    {% csrf_token %}
+
+    <div id="container">
+
+            <div class="dialogue">
+                <center>
+                    <img src="{% static 'img/afit.png' %}" alt="AFIT Logo" />
+                    <h2>SBRS OSOGBO WEEKLY TEST</h2>
+                     <p>To Evaluate students for the week under review.</p>
+
+                    <a href="{% url 'login' %}"><button class="sec-btn">Log in</button></a>
+                    <a href="{% url 'register' %}"><button>Register</button></a>
+                </center>
+            </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Result Viewer</title>
+    <link type="image/x-icon" href="{% static 'img/afms logo.ico' %}" rel="icon" />
+    <link type="text/css" href="{% static 'style/styles.css' %}" rel="stylesheet"/>
+
+</head>
+<body>
+
+
+    <div id="container">
+
+        <div class="dialogue">
+
+            <form method="post">
+
+                {% if error %}
+                    <p style="color:red;">{{ error }}</p>
+                {% endif %}
+
+                {% csrf_token %}
+                <center>
+                    <img src="{% static 'img/quest.png' %}" alt="AFMS Logo" width="260px"/>
+                    <h2>Results Viewer</h2>
+                </center>
+                 <input type="text" name="username" id="username" placeholder="Enter name">
+                 <input type="text" name="password" id="password" placeholder="Enter Password">
+                 <button style="background-color: #ffb548;">Login</button>
+                 <p>Oops only for admins ! <a href="{% url 'index' %}">Go Home</a></p>
+
+            </form>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link type="image/x-icon" href="{% static 'img/afms logo.ico' %}" rel="icon" />
+    <link type="text/css" href="{% static 'style/styles.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'style/dashboard.css' %}" rel="stylesheet"/>
+
+<!--    <script src="{% static 'js/timer.js' %}"></script>-->
+    <script>
+        window.onload = function(){
+            window.localStorage.clear()
+        };
+
+        //Prevent Data
+    history.pushState(null, null, );
+    window.addEventListener('popstate', function(event) {
+      history.pushState(null, null, );
+    });
+
+    </script>
+
+    <script>
+        // Replace the current state with a new state
+        window.history.replaceState(null, document.title, window.location.href);
+
+        // Add a listener for the 'popstate' event
+        window.addEventListener('popstate', function(event) {
+          // Push a new state to forward the user to the next page again
+          window.history.pushState(null, document.title, window.location.href);
+        });
+
+    </script>
+
+</head>
+<body>
+
+    <div id="main">
+
+
+            <center style="margin-top: 60px;">
+
+                {%  for itm in results %}
+                <img src="{% static 'img/check.png' %}" alt="" width="200px"/>
+                <h1>Congrats {{  itm.user }} </h1>
+                <p>
+                    You have successfully written the {{ itm.test }} Test  <br/>
+                    you scored <br/>
+                    <h1 class="score" style="color: green;"> {{ itm.score }} / 10 </h1>
+                </p>
+                {% endfor %}
+
+            </center>
+
+
+
+            <a href="{% url 'dashboard' %}"><button>Go To Dashboard</button></a>
+
+    </div>
+
+    <script>
+        let score = document.querySelector(".score");
+        if(parseInt(score.textContent) < 5){
+            score.style.color = "red";
+        }
+
+        console.log("wired", typeof(parseInt(score.textContent)));
+    </script>
+
+</body>
+</html>

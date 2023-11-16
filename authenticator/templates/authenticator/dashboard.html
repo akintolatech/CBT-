@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dashboard</title>
+    <link type="text/css" href="{% static 'style/dashboard.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'style/styles.css' %}" rel="stylesheet" />
+    <link type="image/x-icon" href="{% static 'img/afit.ico' %}" rel="icon" />
+    <script src="{% static 'js/timer.js' %}"></script>
+
+    <script>
+        // Replace the current state with a new state
+        window.history.replaceState(null, document.title, window.location.href);
+
+        // Add a listener for the 'popstate' event
+        window.addEventListener('popstate', function(event) {
+          // Push a new state to forward the user to the next page again
+          window.history.pushState(null, document.title, window.location.href);
+        });
+
+    </script>
+
+</head>
+<body>
+
+
+    <div id="main">
+        <div id="header">
+
+            <div class="header_wrap">
+            <!--<h4>Computer Based Test: Python {{ test.name }} </h4>-->
+                <div class="logo">
+                    <img src="{% static 'img/afit.png' %}" alt="AFIT Logo" />
+                </div>
+
+                <a href="{% url 'logout' %}">
+                    <button class="head-btn">Log Out</button>
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="head-pad"></div>
+
+        <h2>Welcome, <strong style="color:#088ccd;">{{ name }}</strong> choose your Assessment</h2>
+
+        <div class="test-title">
+            <h4>Please read the Instructions very carefully</h4>
+
+            <ol>
+                <li> Always logout! to prevent account loss.</li>
+                <li> Do not close the browser!</li>
+                <li> Do not try to hack our systems :)</li>
+            </ol>
+
+        </div>
+
+
+
+        <div class="test-container">
+        {% for test in tests %}
+            <div class="test-card">
+
+                <center>
+
+                    <img src="{{ test.image.url }}" />
+                    <h3>{{ test.name }}</h3>
+                    {% if test in written_tests %}
+                        <button class="sec-btn" disabled>Written</button>
+                    {% else%}
+                    <a href="{% url 'test_questions' test.id %}">
+                        <button id="write-btn" class="sec-btn" >Write</button>
+                    </a>
+                    {% endif %}
+                </center>
+
+            </div>
+
+        {% endfor %}
+
+        </div>
+
+    <h4 style="color:#3f0e40;">Cbt v0.8 4 AFIT : Developed by Akintola Technologies</h4>
+    </div>
+
+</body>
+</html>

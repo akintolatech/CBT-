@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ongoing Exam</title>
+    <link type="image/x-icon" href="{% static 'img/afit.ico' %}" rel="icon" />
+    <link type="text/css" href="{% static 'style/dashboard.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'style/styles.css' %}" rel="stylesheet"/>
+    <script src="{% static 'js/timer.js' %}"></script>
+
+
+</head>
+<body>
+
+
+    <div id="main">
+        <div id="header">
+
+            <div class="header_wrap">
+                <h4>Weekly Test: {{ tests.name }} </h4>
+
+                <div class="timer">
+                    <div class="icn">
+                        <img src="{% static 'img/timer.svg' %}"/>
+                    </div>
+                    <span id="time" style="font-weight: 800;"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="head-pad"></div>
+
+        <h2>Welcome <strong style="color:#088ccd;">{{ name }}</strong></h2>
+
+        <div class="test-title">
+            <h4>Please read the Instructions very carefully</h4>
+            <ol>
+                <li> Select the most suitable answer from the options
+                    lettered A – D. Answer all questions.</li>
+            </ol>
+        </div>
+
+        {% for question in test.question_set.all %}
+        <p style="font-weight: bolder;"><strong>{{ forloop.counter }}</strong> {{ question.question_text }}</p>
+        <form action="{% url 'mark' test.id %}" method="post" name="test">
+            {% csrf_token %}
+            <span style="margin-right: 20px;"></span>A.<input type="radio" name="{{ question.id }}" value="{{ question.A }}" style="cursor: pointer;">{{ question.A }}<br>
+            <span style="margin-right: 20px;"></span>B.<input type="radio" name="{{ question.id }}" value="{{ question.B }}" style="cursor: pointer;">{{ question.B }}<br>
+            <span style="margin-right: 20px;"></span>C.<input type="radio" name="{{ question.id }}" value="{{ question.C }}" style="cursor: pointer;">{{ question.C }}<br>
+            <span style="margin-right: 20px;"></span>D.<input type="radio" name="{{ question.id }}" value="{{ question.D }}" style="cursor: pointer;">{{ question.D }}<br>
+            <hr style="opacity: 0.2;"/>
+
+        {% endfor %}
+            <button>Submit this Test</button>
+        </form>
+
+    </div>
+
+
+
+</body>
+</html>

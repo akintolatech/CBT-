@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to CBT</title>
+    <link type="image/x-icon" href="{% static 'img/afit.ico' %}" rel="icon" />
+    <link type="text/css" href="{% static 'style/styles.css' %}" rel="stylesheet"/>
+</head>
+<body>
+
+    <div id="container">
+
+        <div class="dialogue">
+
+            <form method="post">
+
+                {% if error %}
+                    <p style="color:red;">{{ error }}</p>
+                {% endif %}
+
+                {% csrf_token %}
+                <h1>Login</h1>
+                <input type="text" name="username" id="username" placeholder="Enter your name">
+                <input type="password" name="password" id="password" placeholder="Enter your pin">
+                <button>Login</button>
+                 <p>Register here before Log in ! <a href="{% url 'register' %}">Register</a></p>
+
+            </form>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+</body>
+</html>

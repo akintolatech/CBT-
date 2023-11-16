@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results Viewer</title>
+    <link type="image/x-icon" href="{% static 'img/afit.ico' %}" rel="icon" />
+    <link type="text/css" href="{% static 'style/styles.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'style/dashboard.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'style/result.css' %}" rel="stylesheet"/>
+
+</head>
+<body>
+
+    <div id="main">
+
+            <div id="header">
+
+                <div class="header_wrap">
+                <!--<h4>Computer Based Test: Python {{ test.name }} </h4>-->
+                    <div class="logo">
+                        <img src="{% static 'img/afit.png' %}" alt="AFIT Logo" />
+                    </div>
+
+                    <a href="{% url 'index' %}">
+                        <button class="head-btn">Log Out</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div style="margin-bottom: 100px;">
+
+            </div>
+
+            <form method="POST" style="padding:0;">
+                {% csrf_token %}
+                <input name="search_name" type="text" placeholder="Search by name" />
+                <p>Select Class</p>
+                <select name="selected_class">
+                    <option value="All">All</option>
+                    <option value="ART">ART</option>
+                    <option value="SCIENCE">SCIENCE</option>
+                </select>
+
+                <p>Select Subject</p>
+                <select name="selected_subject">
+                    <option value="All">All</option>
+                    <option value="USE OF ENGLISH (SCIENCE)">USE OF ENGLISH(SCIENCE)</option>
+                    <option value="USE OF ENGLISH (ARTS)">USE OF ENGLISH(ARTS)</option>
+                    <option value="MATHEMATICS (SCIENCE)">MATHEMATICS(SCIENCE)</option>
+                    <option value="MATHEMATICS (ARTS)">MATHEMATICS(ARTS)</option>
+                    <option value="ECONOMICS(SCIENCE)">ECONOMICS(SCIENCE)</option>
+                    <option value="ECONOMICS(ARTS)">ECONOMICS(ARTS)</option>
+                    <option value="PHYSICS">PHYSICS</option>
+                    <option value="GEOGRAPHY">GEOGRAPHY</option>
+                    <option value="BIOLOGY">BIOLOGY</option>
+                    <option value="CHEMISTRY">CHEMISTRY</option>
+                    <option value="GOVERNMENT">GOVERNMENT</option>
+
+                </select>
+
+                <button class="sec-btn">Submit Query</button>
+
+
+                <h1>Queried Results</h1>
+                {% if results %}
+                {%  for result in results %}
+                <div class="result">
+                    <div class="data">
+                        <h4>{{  result.username }}</h4>
+                        <h5>{{ result.test }}</h5>
+                    </div>
+
+                    <div class="data">
+                        <h4>{{ result.classes}} </h4>
+                        <h5>{{ result.score }}</h5>
+                    </div>
+
+                </div>
+                {% endfor %}
+                {% else %}
+                <p>{{ not_found_message }}</p>
+                {% endif %}
+
+                <button name="export">Export All Results</button>
+            </form>
+
+    </div>
+
+</body>
+</html>
